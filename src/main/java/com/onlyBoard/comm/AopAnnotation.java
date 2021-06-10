@@ -35,23 +35,7 @@ public class AopAnnotation {
     @Autowired
     protected MessageSource messageSource;
 
-    @Pointcut("execution(* BoardController")
-	public void getPointcut(){}
-
-	@AfterReturning(pointcut="getPointcut()", returning="returnObj")
-	public void afterLog(JoinPoint jp, Object returnObj){
-		String method=jp.getSignature().getName();
-		
-		System.out.println("[사후 처리] " + method +"() 메소드 리턴값 : "+returnObj.toString());
-	}
-    
-    
-    
-    
-    
-    
-//    @Before("execution(* com.onlyBoard.board..controller.*Controller.*(..)) ")
-	@Before("within(com.onlyBoard.board.controller.BoardController")
+    @Before("execution(* com.onlyBoard.board..controller.*Controller.*(..)) ")
     public Object beforeAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
     	
     	logger.info("=================beforeAopGuid()");
@@ -60,7 +44,7 @@ public class AopAnnotation {
     
     
     @SuppressWarnings({ "null" })
-	@Around("execution(* com.onlyBoard.board..controller.*Controller.*(..)) ")
+	@Around("execution(* com.onlyBoard.board.controller.BoardController) ")
     public Object setAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
     	logger.info("setAopGuid () ");
     	HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
