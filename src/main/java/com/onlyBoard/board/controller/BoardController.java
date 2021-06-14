@@ -30,7 +30,7 @@ public class BoardController {
 	public ModelAndView boardList(HttpServletRequest request) {
 		ModelAndView  mav = new ModelAndView("board");	//board model 선언
 		try {
-			logger.info("AAAAAA");
+			logger.info("=============== boardList START ================");
 			Map<String, Object> map =boardService.selectPaging(request);
 			mav.setViewName("main/board");					//jsp 경로
 			mav.addObject("map", map);						//총레코드수
