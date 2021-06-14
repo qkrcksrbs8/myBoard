@@ -39,6 +39,7 @@ public class BoardController {
 			logger.error(e.getMessage());
  			logger.error(e.toString());
 		}
+		logger.info("=============== boardList E N D ================");
  		return mav;
 	}
 	
