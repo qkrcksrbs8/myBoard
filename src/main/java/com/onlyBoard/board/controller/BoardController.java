@@ -70,6 +70,7 @@ public class BoardController {
 							, @RequestParam(value="board_title") String board_title
 							, @RequestParam(value="board_content") String board_content
 							, @RequestParam(value="user_name") String user_name) {
+		logger.info("=============== updateBoard START ================");
 		
 		logger.info("start");
 		logger.info("board_seq : "+board_seq);
@@ -98,7 +99,8 @@ public class BoardController {
 		
 		
 		logger.info("end");
-		
+
+		logger.info("=============== updateBoard E N D ================");
 		return resultCode;
 	}
 	
