@@ -50,10 +50,12 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/boardDetail")
 	public ModelAndView boardDetail(HttpServletRequest request) {
+		logger.info("=============== boardDetail START ================");
 		Map<String, Object> map = boardService.boardDetail(request);
 		ModelAndView  mav = new ModelAndView("boardDetail");
 		mav.setViewName("main/boardDetail");			//JSP 경로
 		mav.addObject("boardList", map.get("boardList"));//게시판 리스트
+		logger.info("=============== boardDetail E N D ================");
 		return mav;
 	}
 
