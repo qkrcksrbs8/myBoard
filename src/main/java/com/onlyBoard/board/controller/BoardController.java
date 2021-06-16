@@ -114,13 +114,9 @@ public class BoardController {
 	@RequestMapping(value="/deleteBoard")
 	public String deleteBoard(@RequestParam(value="board_seq") int board_seq
 							, @RequestParam(value="user_name") String user_name) {
-		
-		logger.info("start");
-		logger.info("board_seq : "+board_seq);
-		logger.info("user_name : "+user_name);
-		
+
+		logger.info("=============== deleteBoard START ================");
 		String resultCode = "0000";//0000:정상 / 9000:에러
-		
 		try {
 			
 			Map<String, Object> map = new HashMap<String, Object>();//게시글 삭제 map
@@ -135,10 +131,8 @@ public class BoardController {
 			resultCode = "9000";
 			
 		}//try
-		
-		
-		logger.info("end");
-		
+
+		logger.info("=============== deleteBoard E N D ================");
 		return resultCode;
 	}
 	
