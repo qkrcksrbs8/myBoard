@@ -51,7 +51,7 @@ public interface BoardService {
 	 * @param request
 	 * @return
 	 */
-	public Map<String, Object> selectPaging(HttpServletRequest request);
+	public Map<String, Object> selectPaging(HttpServletRequest request, Map<String, Object> map);
 	
 	/**
 	 * 게시판 상세조회

@@ -14,7 +14,6 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +34,15 @@ public class AopAnnotation {
     @Autowired
     protected MessageSource messageSource;
 
-    @Before("execution(* com.onlyBoard.board..controller.*Controller.*(..)) ")
+    
+    
+    @Around("execution(* com.onlyBoard.board.service.impl.*(..))")
     public Object beforeAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
     	
     	logger.info("=================beforeAopGuid()");
     	return joinPoint.proceed();
     }
-    
-    
+   
     @SuppressWarnings({ "null" })
 	@Around("execution(* com.onlyBoard.board.controller.BoardController) ")
     public Object setAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -59,7 +59,7 @@ public class AopAnnotation {
         for(Object o:joinPoint.getArgs()) {
         	if(o instanceof HttpServletRequest) {
         		if(request != null || !request.equals("")) {
-        			logger.info("SESS_GUID = {}, httprequest param : {}", sessGuid, map2str(request.getParameterMap()));
+        			logger.info("SESS_GUID = {}, httprequest param : {}", sessGuid, mapToStr(request.getParameterMap()));
         		}
         	}else {
         		logger.info("SESS_GUID = {}, param : {}", sessGuid, o);
@@ -78,29 +78,11 @@ public class AopAnnotation {
         HttpSession session = request.getSession();
         
         String sessGuid = Utility.convertNull((String)session.getAttribute("SESS_GUID"));
-        
-        
-//        if(!type.equals("CommService.RequestLog(..)")
-//    		&& !type.equals("CommService.updateApiRequestLog(..)")
-//    		&& !method.equals("AES256_encrypt")
-//    		&& !method.equals("AES256_decrypt")
-//    		&& !method.equals("DAMOSC_encrypt") 
-//    		&& !method.equals("DAMOSC_decrypt") 
-//    		&& !method.equals("getStoreOpenStatus") 
-//    		&& !method.equals("getPoling")
-//    		&& !method.equals("getOrders")
-//    		&& !method.equals("getPolingAll")){
-        	
 	        logger.info("SESS_GUID = {}, {}  METHOD : {}", sessGuid, type, method);
-	        
 	        for(Object o:joinPoint.getArgs()) {
 	            if(!(o instanceof HttpSession)){
 	                if(o instanceof HttpServletRequest) {
-
 	                }else {
-	                	if(o.equals("POB001") || o.equals("POB101")) {
-	                		break;
-	                	}
 	                    logger.info("SESS_GUID = {}, {} request param : {}",sessGuid, method, o);
 	                }
 	            }
@@ -112,7 +94,6 @@ public class AopAnnotation {
     }
 
 
-//    @AfterThrowing(pointcut="execution(* com.onlyBoard.board.*Controller.*(..)) || execution(* kr.co.bluewalnut.took2.app.api.*.service.impl.*Impl.*(..))", throwing="ex")
     @AfterThrowing(pointcut="execution(* com.onlyBoard.board.controller.*Controller.*(..))", throwing="ex")
     public void setExceptionMethod(JoinPoint joinPoint, Exception ex) throws Throwable {
     	logger.info("setExceptionMethod () ");
@@ -144,16 +125,14 @@ public class AopAnnotation {
 
  
     
-    public String map2str(Map<String, String[]> map){
+    public String mapToStr(Map<String, String[]> map){
         if(map == null){
             return null;
-        }
-        
+        }    
         StringBuffer sb = new StringBuffer();
         sb.append("{");
         for(String key : map.keySet()){
-            Object val = map.get(key);
-            
+            Object val = map.get(key);   
             if(val == null){
                 sb.append(key + "null");
             }else if(val instanceof String){
@@ -169,12 +148,10 @@ public class AopAnnotation {
                 }
             }else{
                 sb.append(key + ":" + val.toString());
-            }
-            
+            }     
             sb.append(", ");
         }
-        sb.append("}");
-        
+        sb.append("}"); 
         return sb.toString();
     }
 

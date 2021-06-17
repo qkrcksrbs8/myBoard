@@ -15,23 +15,11 @@ public class PagingUtil {
 	 * pageUrl : 호출 페이지 url
 	 * addKey : 부가적인 key 없을 때는 null 처리 (&num=23형식으로 전달할 것)
 	 * */
-	public PagingUtil(int currentPage, int totalCount, int blockCount,
-			int blockPage, String pageUrl) {
-		this(null,null,currentPage,totalCount,blockCount,blockPage,pageUrl,null);
+	public PagingUtil(int currentPage, int totalCount, int blockCount,int blockPage, String pageUrl) {
+		this(null,null,currentPage,totalCount,blockCount,blockPage,pageUrl);
 	}
-	public PagingUtil(int currentPage, int totalCount, int blockCount,
-			int blockPage, String pageUrl, String addKey) {
-		this(null,null,currentPage,totalCount,blockCount,blockPage,pageUrl,addKey);
-	}
-	//keyField(검색분야),keyWord(검색어)
-	public PagingUtil(String keyField, String keyWord, int currentPage, int totalCount, int blockCount,
-			int blockPage,String pageUrl) {
-		this(null,null,currentPage,totalCount,blockCount,blockPage,pageUrl,null);
-	}
-	public PagingUtil(String keyField, String keyWord, int currentPage, int totalCount, int blockCount,
-			int blockPage,String pageUrl,String addKey) {
-		
-		if(addKey == null) addKey = ""; //부가키가 null 일때 ""처리
+
+	public PagingUtil(String keyField, String keyWord, int currentPage, int totalCount, int blockCount,int blockPage,String pageUrl) {
 		
 		// 전체 페이지 수
 		int totalPage = (int) Math.ceil((double) totalCount / blockCount);	
@@ -56,9 +44,9 @@ public class PagingUtil {
 		pagingHtml = new StringBuffer();
 		if (currentPage > blockPage) {
 			if(keyWord==null){//검색 미사용시
-				pagingHtml.append("<a href="+pageUrl+"?pageNum="+ (startPage - 1) + addKey +">");
+				pagingHtml.append("<a href="+pageUrl+"?pageNum="+ (startPage - 1) +">");
 			}else{
-				pagingHtml.append("<a href="+pageUrl+"?keyField="+keyField+"&keyWord="+keyWord+"&pageNum="+ (startPage - 1) + addKey +">");
+				pagingHtml.append("<a href="+pageUrl+"?keyField="+keyField+"&keyWord="+keyWord+"&pageNum="+ (startPage - 1) +">");
 			}
 			pagingHtml.append("이전");
 			pagingHtml.append("</a>");
@@ -80,7 +68,7 @@ public class PagingUtil {
 					pagingHtml.append("&nbsp;<a href='"+pageUrl+"?keyField="+keyField+"&keyWord="+keyWord+"&pageNum=");
 				}
 				pagingHtml.append(i);
-				pagingHtml.append(addKey+"'>");
+				pagingHtml.append("'>");
 				pagingHtml.append(i);
 				pagingHtml.append("</a>");
 			}
@@ -90,9 +78,9 @@ public class PagingUtil {
 		// 다음 block 페이지
 		if (totalPage - startPage >= blockPage) {
 			if(keyWord==null){//검색 미사용시
-				pagingHtml.append("<a href="+pageUrl+"?pageNum="+ (endPage + 1) + addKey +">");
+				pagingHtml.append("<a href="+pageUrl+"?pageNum="+ (endPage + 1) + ">");
 			}else{
-				pagingHtml.append("<a href="+pageUrl+"?keyField="+keyField+"&keyWord="+keyWord+"&pageNum="+ (endPage + 1) + addKey +">");
+				pagingHtml.append("<a href="+pageUrl+"?keyField="+keyField+"&keyWord="+keyWord+"&pageNum="+ (endPage + 1) +">");
 			}
 			pagingHtml.append("다음");
 			pagingHtml.append("</a>");

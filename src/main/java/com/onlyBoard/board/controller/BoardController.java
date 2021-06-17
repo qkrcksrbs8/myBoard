@@ -27,13 +27,24 @@ public class BoardController {
 	 * 게시판 조회
 	 */
 	@RequestMapping(value="/boardList")
-	public ModelAndView boardList(HttpServletRequest request) {
+	public ModelAndView boardList(HttpServletRequest request
+			, @RequestParam(value="pageNum",defaultValue="1")int currentPage
+			, @RequestParam(value="keyField", required =false) String keyField
+			, @RequestParam(value="keyWord", required =false) String keyWord) {
+
+		logger.info("=============== boardList START ================");
 		ModelAndView  mav = new ModelAndView("board");	//board model 선언
 		try {
-			logger.info("=============== boardList START ================");
-			Map<String, Object> map =boardService.selectPaging(request);
-			mav.setViewName("main/board");					//jsp 경로
-			mav.addObject("map", map);						//총레코드수
+			Map<String, Object> reqMap = new HashMap<String, Object>();
+			reqMap.put("currentPage", currentPage);
+			reqMap.put("keyField"	, keyField);
+			reqMap.put("keyWord"	, keyWord);
+			Map<String, Object> map = boardService.selectPaging(request,reqMap);
+			mav.setViewName("main/board");					
+			mav.addObject("count"		, reqMap.get("count"));
+			mav.addObject("boardList"	, reqMap.get("boardList"));
+			mav.addObject("pagingHtml"	, reqMap.get("pagingHtml"));
+			mav.addObject("keyWord"		, reqMap.get("keyWord"));
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage());
