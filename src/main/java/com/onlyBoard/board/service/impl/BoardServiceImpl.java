@@ -150,6 +150,7 @@ public class BoardServiceImpl implements BoardService {
 	 */
 	public Map<String, Object> selectPaging(HttpServletRequest request, Map<String, Object> map) {
 
+		logger.info("["+request.getAttribute("trsNo")+"]=============== selectPaging START ================");
 		String keyField	= Utility.convertNull((String)map.get("keyField"));
 		String keyWord	= Utility.convertNull((String)map.get("keyWord"));
  		int currentPage = (Integer) map.get("currentPage");
@@ -176,8 +177,7 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 
-		logger.info("page : "		+page.toString());
-		
+		logger.info("["+request.getAttribute("trsNo")+"] page : "+page.toString());
 		map.put("start", page.getStartCount());	//시작 게시물번호
 		map.put("end", page.getEndCount());		//마지막게시물번호
 
@@ -195,6 +195,7 @@ public class BoardServiceImpl implements BoardService {
 		resultMap.put("boardList", boardList);				//게시판 리스트
 		resultMap.put("pagingHtml", page.getPagingHtml());	//링크문자열을 전달
 		resultMap.put("keyWord", keyWord);					//검색어 전달
+		logger.info("["+request.getAttribute("trsNo")+"]=============== selectPaging E N D ================");
 		return resultMap;
 	}
 	

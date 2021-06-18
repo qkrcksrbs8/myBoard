@@ -22,5 +22,6 @@ public final class Utility {
 		}
 		return result;
 	}
+
 	
 }

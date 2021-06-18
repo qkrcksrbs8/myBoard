@@ -1,7 +1,11 @@
 package com.onlyBoard.board.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,8 +35,13 @@ public class BoardController {
 			, @RequestParam(value="pageNum",defaultValue="1")int currentPage
 			, @RequestParam(value="keyField", required =false) String keyField
 			, @RequestParam(value="keyWord", required =false) String keyWord) {
-
+		Map<String, Object> trsMap = new HashMap<String, Object>();
+		trsMap.put("currentPage",currentPage);
+		trsMap.put("keyField",keyField);
+		trsMap.put("keyWord",keyWord);
+		request.setAttribute("trsNo", getTrsNo());
 		logger.info("=============== boardList START ================");
+//		logger.info("SESS_GUID = {}, {} request param : {}",request.getAttribute("trsNo"), "boardList", (Object)trsMap.toString());
 		ModelAndView  mav = new ModelAndView("board");	//board model ¼±¾ð
 		try {
 			Map<String, Object> reqMap = new HashMap<String, Object>();
@@ -50,7 +59,7 @@ public class BoardController {
 			logger.error(e.getMessage());
  			logger.error(e.toString());
 		}
-		logger.info("=============== boardList E N D ================");
+		logger.info("["+request.getAttribute("trsNo")+"]=============== boardList E N D ================");
  		return mav;
 	}
 	
@@ -200,4 +209,21 @@ public class BoardController {
 		
 	}
 	
+	public static synchronized String getTrsNo() {
+		Random rand = new Random();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		Calendar cal = Calendar.getInstance();
+		
+		Date date = cal.getTime();
+		
+		int rnum = rand.nextInt(100);
+		String rnumStr = String.valueOf(rnum);
+		int len = rnumStr.length();
+		
+		for (int i = 0; i < 2 - len; i++) {
+			rnumStr = "0" + rnumStr;
+		}
+		String trsNo = "9999" + sdf.format(date) + rnumStr;
+		return trsNo;
+	}
 }

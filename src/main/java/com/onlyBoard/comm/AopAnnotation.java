@@ -25,7 +25,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.onlyBoard.util.Utility;
 
 
-@Aspect
+@Aspect 
 @Component
 public class AopAnnotation {
 
@@ -35,13 +35,12 @@ public class AopAnnotation {
     protected MessageSource messageSource;
 
     
-    
-    @Around("execution(* com.onlyBoard.board.service.impl.*(..))")
-    public Object beforeAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
-    	
-    	logger.info("=================beforeAopGuid()");
-    	return joinPoint.proceed();
-    }
+//    @Around("execution(* com.onlyBoard.board.service.impl.*(..))")
+//    public Object beforeAopGuid(ProceedingJoinPoint joinPoint) throws Throwable {
+//    	
+//    	logger.info("=================beforeAopGuid()");
+//    	return joinPoint.proceed();
+//    }
    
     @SuppressWarnings({ "null" })
 	@Around("execution(* com.onlyBoard.board.controller.BoardController) ")
@@ -78,7 +77,7 @@ public class AopAnnotation {
         HttpSession session = request.getSession();
         
         String sessGuid = Utility.convertNull((String)session.getAttribute("SESS_GUID"));
-	        logger.info("SESS_GUID = {}, {}  METHOD : {}", sessGuid, type, method);
+	        logger.info("SESS_GUID = {}, {}  METHOD : {}", sessGuid, type, method); 
 	        for(Object o:joinPoint.getArgs()) {
 	            if(!(o instanceof HttpSession)){
 	                if(o instanceof HttpServletRequest) {
@@ -90,7 +89,6 @@ public class AopAnnotation {
 	        if(retValue != null) {
 	        	logger.info("SESS_GUID = {}, {} response param : {}",sessGuid, method, retValue);
 	        }
-//        }
     }
 
 
