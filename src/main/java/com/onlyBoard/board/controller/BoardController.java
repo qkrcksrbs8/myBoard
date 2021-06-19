@@ -40,7 +40,7 @@ public class BoardController {
 		trsMap.put("keyField",keyField);
 		trsMap.put("keyWord",keyWord);
 		request.setAttribute("trsNo", getTrsNo());
-		logger.info("=============== boardList START ================");
+		logger.info("============================== boardList START ===============================");
 		logger.info("SESS_GUID = ["+request.getAttribute("trsNo")+"], [boardList] request param : "+trsMap.toString()); 
 		ModelAndView  mav = new ModelAndView("board");	//board model 선언
 		try {
@@ -59,7 +59,7 @@ public class BoardController {
 			logger.error(e.getMessage());
  			logger.error(e.toString());
 		}
-		logger.info("["+request.getAttribute("trsNo")+"]=============== boardList E N D ================");
+		logger.info("============================= boardList E N D ===============================");
  		return mav;
 	}
 	
@@ -70,12 +70,12 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/boardDetail")
 	public ModelAndView boardDetail(HttpServletRequest request) {
-		logger.info("=============== boardDetail START ================");
+		logger.info("============================== boardDetail START ===============================");
 		Map<String, Object> map = boardService.boardDetail(request);
 		ModelAndView  mav = new ModelAndView("boardDetail");
 		mav.setViewName("main/boardDetail");			//JSP 경로
 		mav.addObject("boardList", map.get("boardList"));//게시판 리스트
-		logger.info("=============== boardDetail E N D ================");
+		logger.info("============================== boardDetail E N D ===============================");
 		return mav;
 	}
 
