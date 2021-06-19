@@ -41,7 +41,7 @@ public class BoardController {
 		trsMap.put("keyWord",keyWord);
 		request.setAttribute("trsNo", getTrsNo());
 		logger.info("=============== boardList START ================");
-//		logger.info("SESS_GUID = {}, {} request param : {}",request.getAttribute("trsNo"), "boardList", (Object)trsMap.toString());
+		logger.info("SESS_GUID = ["+request.getAttribute("trsNo")+"], [boardList] request param : "+trsMap.toString()); 
 		ModelAndView  mav = new ModelAndView("board");	//board model ¼±¾ð
 		try {
 			Map<String, Object> reqMap = new HashMap<String, Object>();
@@ -50,10 +50,10 @@ public class BoardController {
 			reqMap.put("keyWord"	, keyWord);
 			Map<String, Object> map = boardService.selectPaging(request,reqMap);
 			mav.setViewName("main/board");					
-			mav.addObject("count"		, reqMap.get("count"));
-			mav.addObject("boardList"	, reqMap.get("boardList"));
-			mav.addObject("pagingHtml"	, reqMap.get("pagingHtml"));
-			mav.addObject("keyWord"		, reqMap.get("keyWord"));
+			mav.addObject("count"		, map.get("count"));
+			mav.addObject("boardList"	, map.get("boardList"));
+			mav.addObject("pagingHtml"	, map.get("pagingHtml"));
+			mav.addObject("keyWord"		, map.get("keyWord"));
 		}
 		catch (Exception e) {
 			logger.error(e.getMessage());
