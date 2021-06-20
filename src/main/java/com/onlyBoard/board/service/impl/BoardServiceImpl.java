@@ -65,6 +65,7 @@ public class BoardServiceImpl implements BoardService {
 	 * 게시글 상세
 	 */
 	public BoardVO selectBoard(int board_seq) {
+		logger.info("============================== selectBoard START ===============================");
 		
 		BoardVO boardVO = new BoardVO();//게시판VO
 		
@@ -78,7 +79,8 @@ public class BoardServiceImpl implements BoardService {
 			logger.error(e.toString());
 			
 		}//try
-		
+
+		logger.info("============================== selectBoard START ===============================");
 		return boardVO;
 	
 	}
