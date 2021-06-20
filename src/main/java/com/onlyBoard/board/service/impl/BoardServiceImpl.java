@@ -48,20 +48,15 @@ public class BoardServiceImpl implements BoardService {
 	 * 게시글 리스트
 	 */
 	public List<BoardVO> selectBoardList(Map<String, Object> map) {	
-		
+		logger.info("============================== selectBoardList START ===============================");
 		List<BoardVO> boardList = new ArrayList<BoardVO>();//게시판VO List
-		
-		try {
-			
-			boardList = boardDAO.selectBoardList(map);//게시판 리스트 조회
-			
+		try {		
+			boardList = boardDAO.selectBoardList(map);//게시판 리스트 조회		
 		}catch(Exception e) {
-			
 			logger.error("selectBoardList()");
 			logger.error(e.toString());
-			
 		}//try
-		
+		logger.info("============================== selectBoardList START ===============================");
 		return boardList;
 		
 	}
