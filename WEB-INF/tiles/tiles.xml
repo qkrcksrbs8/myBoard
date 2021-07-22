@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC 
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+<tiles-definitions>     
+
+	<definition name="tilesLogin" template="/WEB-INF/tiles/layout/login_layout.jsp">   
+	    <put-attribute name="title" value="PORO STONE" />             
+	    <put-attribute name="body" value="" />       
+	</definition>       
+	
+	 <!-- login  -->
+	<definition name="login" extends="tilesLogin">    
+	    <put-attribute name="body" value="/WEB-INF/views/login.jsp" />    
+	</definition>
+	
+	<definition name="tilesMain" template="/WEB-INF/tiles/layout/main_layout.jsp">   
+	    <put-attribute name="title" value="PORO STONE" />        
+	    <put-attribute name="header" value="/WEB-INF/tiles/layout/header.jsp" />     
+	    <put-attribute name="subTitle" value="/WEB-INF/tiles/layout/sub_title.jsp" />  
+	    <put-attribute name="body" value="" />       
+	</definition>    
+	
+	<!-- sub -->
+	<definition name="*/*/*.tiles" extends="tilesMain">       
+	    <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />    
+	</definition> 
+	
+	<!-- print -->
+	<definition name="tilesPrint" template="/WEB-INF/tiles/layout/print_layout.jsp">    
+	    <put-attribute name="title" value="MRES" />             
+	    <put-attribute name="body" value="" />   
+	</definition>
+	
+	<definition name="*/*/print/*.tiles" extends="tilesPrint">       
+	    <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/print/{3}.jsp" />    
+	</definition> 
+	
+</tiles-definitions>
+
+

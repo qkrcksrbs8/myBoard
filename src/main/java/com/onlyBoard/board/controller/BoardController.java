@@ -90,36 +90,20 @@ public class BoardController {
 							, @RequestParam(value="board_title") String board_title
 							, @RequestParam(value="board_content") String board_content
 							, @RequestParam(value="user_name") String user_name) {
-		logger.info("=============== updateBoard START ================");
-		
-		logger.info("start");
-		logger.info("board_seq : "+board_seq);
-		logger.info("board_title : "+board_title);
-		logger.info("board_content : "+board_content);
-		logger.info("user_name : "+user_name);
-		
-		String resultCode = "0000";//0000:정상 / 9000:에러
-		
+		logger.info("=============== updateBoard START ================");	
+		String resultCode = "0000";//0000:정상 / 9000:에러	
 		try {
-			
 			Map<String, Object> map = new HashMap<String, Object>();//게시글 업데이트 map
 			map.put("board_seq", board_seq);//게시글 시퀀스
 			map.put("board_title", board_title.replace("\r\n","<br>"));//게시글 제목
 			map.put("board_content", board_content.replace("\r\n","<br>"));//게시글 내용
-			map.put("user_name", user_name);//최종수정자
-			 
-			resultCode = boardService.updateBoard(map);//게시글 업데이트
-			
+			map.put("user_name", user_name);//최종수정자	 
+			resultCode = boardService.updateBoard(map);//게시글 업데이트	
 		}catch(Exception e) {
-
 			logger.error(e.toString());
-			resultCode = "9000";
-			
-		}//try
-		
-		
+			resultCode = "9000";		
+		}//try		
 		logger.info("end");
-
 		logger.info("=============== updateBoard E N D ================");
 		return resultCode;
 	}
@@ -135,21 +119,15 @@ public class BoardController {
 							, @RequestParam(value="user_name") String user_name) {
 		logger.info("=============== deleteBoard START ================");
 		String resultCode = "0000";//0000:정상 / 9000:에러
-		try {
-			
+		try {		
 			Map<String, Object> map = new HashMap<String, Object>();//게시글 삭제 map
 			map.put("board_seq", board_seq);//게시글 시퀀스
-			map.put("user_name", user_name);//최종수정자
-			
-			resultCode = boardService.deleteBoard(map);//게시글 삭제
-			
+			map.put("user_name", user_name);//최종수정자		
+			resultCode = boardService.deleteBoard(map);//게시글 삭제			
 		}catch(Exception e) {
-
 			logger.error(e.toString());
 			resultCode = "9000";
-			
 		}//try
-
 		logger.info("=============== deleteBoard E N D ================");
 		return resultCode;
 	}
@@ -175,36 +153,21 @@ public class BoardController {
 	@RequestMapping(value="/insertBoard")
 	public String boardInsert(@RequestParam(value="board_title", required =false) String board_title
 							  , @RequestParam(value="board_content", required =false) String board_content
-							  , @RequestParam(value="user_name", required =false) String user_name) {
-		
-		logger.info("start");
-		logger.info("board_title : "+board_title);
-		logger.info("board_content : "+board_content);
-		logger.info("user_name : "+user_name);
-		
-		String resultCode = "0000";//0000:정상 / 9000:에러
-		
-		try {
-			
+							  , @RequestParam(value="user_name", required =false) String user_name) {	
+		String resultCode = "0000";//0000:정상 / 9000:에러	
+		try {	
 			Map<String, Object> map = new HashMap<String, Object>();//게시글 삭제 map
 			map.put("board_title", board_title);//게시글 제목
 			map.put("board_content", board_content);//게시글 내용
 			map.put("created_by", user_name);//생성자
 			map.put("last_update_by", user_name);//최종수정자
-			
-			resultCode = boardService.insertBoard(map);//게시글 삭제
-			
+			resultCode = boardService.insertBoard(map);//게시글 삭제		
 		}catch(Exception e) {
-
 			logger.error(e.toString());
-			resultCode = "9000";
-			
-		}//try
-				
-		logger.info("end");
-		
+			resultCode = "9000";		
+		}//try			
+		logger.info("end");	
 		return resultCode;
-		
 	}
 	
 	/**
