@@ -124,7 +124,6 @@ public class BoardController {
 		return resultCode;
 	}
 	
-	
 	/**
 	 * 게시판 삭제
 	 * @param board_seq
@@ -134,7 +133,6 @@ public class BoardController {
 	@RequestMapping(value="/deleteBoard")
 	public String deleteBoard(@RequestParam(value="board_seq") int board_seq
 							, @RequestParam(value="user_name") String user_name) {
-
 		logger.info("=============== deleteBoard START ================");
 		String resultCode = "0000";//0000:정상 / 9000:에러
 		try {
@@ -209,21 +207,22 @@ public class BoardController {
 		
 	}
 	
+	/**
+	 * 트랜잭션 번호 생성
+	 * @return
+	 */
 	public static synchronized String getTrsNo() {
-		Random rand = new Random();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		Calendar cal = Calendar.getInstance();
-		
-		Date date = cal.getTime();
-		
-		int rnum = rand.nextInt(100);
-		String rnumStr = String.valueOf(rnum);
-		int len = rnumStr.length();
-		
+		Random rand 			= new Random();
+		SimpleDateFormat sdf 	= new SimpleDateFormat("yyyyMMddHHmmssSSS");
+		Calendar cal 			= Calendar.getInstance();	
+		Date date 				= cal.getTime();
+		int rnum 				= rand.nextInt(100);
+		String rnumStr 			= String.valueOf(rnum);
+		int len 				= rnumStr.length();
 		for (int i = 0; i < 2 - len; i++) {
 			rnumStr = "0" + rnumStr;
 		}
-		String trsNo = "9999" + sdf.format(date) + rnumStr;
+		String trsNo 			= "9999" + sdf.format(date) + rnumStr;
 		return trsNo;
 	}
 }
